@@ -37,3 +37,6 @@
 
 .env*
 .idea/**/*
+
+# annoying MacOS files
+/**/._*
