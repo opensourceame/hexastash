@@ -1,0 +1,48 @@
+---
+name: RSpec
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: RSpec Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB:       hexarad_test
+          POSTGRES_USER:     postgres
+          POSTGRES_PASSWORD: postgres
+    env:
+      RAILS_ENV:    test
+      DATABASE_URL: "postgres://postgres:postgresd@localhost:5432/hexarad_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMS__CONTRIBSYS__COM: 6df5109c:408e5fdf
+          BUNDLE_GITHUB__COM: x-access-token:${{ secrets.GITHUB_TOKEN }}
+        with:
+          ruby-version:  3.1.4
+          bundler-cache: true
+
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DISABLE_PRY: true
+        run: |
+              DISABLE_DEVISE=true bin/rails db  :schema:load
+              bundle config set without development capistrano acceptance
+              bundle exec rspec
