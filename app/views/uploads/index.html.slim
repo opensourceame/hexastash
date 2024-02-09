@@ -1,10 +1,24 @@
+.float-end
+  = link_to "New upload", new_upload_path, class: 'btn btn-primary'
+
 h2 Uploads
 
-#uploads
-  - @uploads.each do |upload|
-    = image_tag upload.file.variant(resize_to_limit: [100, 100], format: :png)
-    == render upload
-    p
-      = link_to "Show this upload", upload, class: 'btn btn-primary'
 
-= link_to "New upload", new_upload_path, class: 'btn btn-primary'
+table.table.table-striped#uploads
+  thead
+    tr
+      th Date
+      th File
+      th Type
+      th Actions
+
+  tbody
+    - @uploads.each do |upload|
+      tr
+        td = upload.created_at
+        td = link_to upload.file.filename, upload.file
+        td = upload.file.content_type
+        td = link_to "Show", upload
+        td = link_to "Edit", edit_upload_path(upload)
+        td = link_to "Delete", upload, method: :delete, data: { confirm: "Are you sure?" }
+
