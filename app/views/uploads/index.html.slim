@@ -3,7 +3,6 @@ h2 Uploads
 #uploads
   - @uploads.each do |upload|
     = image_tag upload.file.variant(resize_to_limit: [100, 100], format: :png)
-    == render upload
     p
       = link_to "Show this upload", upload, class: 'btn btn-primary'
 

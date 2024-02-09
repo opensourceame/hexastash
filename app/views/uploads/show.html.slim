@@ -1,0 +1,11 @@
+.jumbotron.text-center.m-4
+  h3 = @upload.file.filename
+  = image_tag @upload.file.variant(@options)
+
+.row.text-center.m-4
+  .col
+    = link_to "◀︎ Back to uploads", uploads_path, class: 'btn btn-secondary'
+  .col
+    = link_to "Edit this upload", edit_upload_path(@upload), class: 'btn btn-primary'
+  .col
+    = button_to "Destroy this upload", @upload, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'

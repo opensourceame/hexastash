@@ -1,0 +1,11 @@
+= bootstrap_form_for(@upload) do |form|
+  - if @upload.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(upload.errors.count, "error")} prohibited this upload from being saved:"
+      ul
+        - @upload.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.file_field :image, skip_label: true
+    = form.submit
