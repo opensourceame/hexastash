@@ -5,4 +5,6 @@
     .col
       = f.select :type, options_for_select(Image::FORMAT_OPTIONS, @format)
     .col
+      = f.select :quality, options_for_select(Image::QUALITY_OPTIONS, @quality)
+    .col
       = f.submit 'Go', class: 'btn btn-primary'

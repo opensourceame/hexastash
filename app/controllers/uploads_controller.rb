@@ -6,12 +6,14 @@ class UploadsController < ApplicationController
   end
 
   def show
-    @size   = params[:size].presence || :thumbnail
-    @format = params[:type].presence || :jpg
+    @size    = params[:size].presence    || :thumbnail
+    @format  = params[:type].presence    || :jpg
+    @quality = params[:quality].presence || 100
 
     @options = {
       resize_to_limit: Image::SIZE_OPTIONS[@size.to_sym],
-      format:          @format
+      format:          @format,
+      saver:           { quality: @quality.to_i }
     }
   end
 
