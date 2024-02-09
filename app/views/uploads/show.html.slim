@@ -1,15 +1,9 @@
-= bootstrap_form_tag(url: upload_path(@upload), method: :get, layout: :horizontal) do |f|
-  .row.text-center
-    .col
-      = f.select :size, options_for_select(Image::SIZE_OPTIONS.keys, @size)
-    .col
-      = f.select :type, options_for_select(Image::FORMAT_OPTIONS, @format)
-    .col
-      = f.submit 'Go', class: 'btn btn-primary'
+- if @upload.image?
+  = render 'image_format_form'
 
-.jumbotron.text-center.m-4
-  h3 = @upload.file.filename
-  = image_tag @upload.file.variant(@options)
+  .jumbotron.text-center.m-4
+    h3 = @upload.file.filename
+    = image_tag @upload.file.variant(@options)
 
 .row.text-center.m-4r
   .col
