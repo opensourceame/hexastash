@@ -7,5 +7,5 @@
           li = error.full_message
 
   div
-    = form.file_field :image, skip_label: true
-    = form.submit
+    = form.file_field :file, skip_label: true
+    = form.submit 'Upload file', class: 'btn btn-primary'

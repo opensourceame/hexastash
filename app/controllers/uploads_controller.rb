@@ -20,7 +20,7 @@ class UploadsController < ApplicationController
   # POST /uploads or /uploads.json
   def create
     @upload = Upload.new
-    @upload.file.attach(upload_params[:image])
+    @upload.file.attach(upload_params[:file])
 
     respond_to do |format|
       if @upload.save
@@ -50,6 +50,6 @@ class UploadsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def upload_params
-    params[:upload].permit(:image)
+    params[:upload]&.permit(:file)
   end
 end
