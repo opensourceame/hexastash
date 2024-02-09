@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Image Transformer
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+
+    link rel="manifest" crossorigin="use-credentials" href="/manifest.json"
+    link rel="apple-touch-icon" href="/assets/favicon.ico"
+
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+
+    = javascript_importmap_tags
+
+  body
+    #header.alert.alert-info
+      h3 Image Transformer
+    #content
+      #flash-messages
+        - if notice.present?
+          p.alert.alert-info = notice
+        - if alert.present?
+          p.alert.alert-warning = alert
+
+      = yield
+
+
