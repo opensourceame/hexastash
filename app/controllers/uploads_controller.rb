@@ -2,13 +2,16 @@ class UploadsController < ApplicationController
   before_action :set_upload, only: %i[ show destroy ]
 
   def index
-    @uploads = Upload.all
+    @uploads = Upload.order('created_at desc').all
   end
 
   def show
+    @size   = params[:size].presence || :thumbnail
+    @format = params[:type].presence || :jpg
+
     @options = {
-      resize_to_limit: [100, 100],
-      format:          :png
+      resize_to_limit: Image::SIZE_OPTIONS[@size.to_sym],
+      format:          @format
     }
   end
 
