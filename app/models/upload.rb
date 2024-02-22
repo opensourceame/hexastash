@@ -14,4 +14,14 @@ class Upload < ApplicationRecord
   def set_file_name
     self.filename = file.filename.to_s
   end
+
+  def update_description
+    data = file.download
+
+    a           = Astica.new
+    data        = a.encode_image_from_blob(data)
+    description = a.upload_image(data)
+
+    update(description: description)
+  end
 end

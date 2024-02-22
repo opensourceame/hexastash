@@ -57,6 +57,7 @@ gem "bootstrap_form", '~> 5.3'
 gem 'dartsass-rails'
 gem 'dotenv'
 gem "dotenv-rails"
+gem 'faraday'
 gem "importmap-rails"
 gem "slim-rails"
 
